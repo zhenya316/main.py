@@ -15,3 +15,4 @@ print(immutable_var)
 #immutable_var[1] = 7
 #print(immutable_var)   # Кортеж не поддерживает назначение элементов, кортежи не изменяется
 
+
