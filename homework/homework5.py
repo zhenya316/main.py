@@ -13,6 +13,11 @@
 immutable_var = 1, 2, 3, [1, 5], True
 print(immutable_var)
 #immutable_var[1] = 7
-#print(immutable_var)   # Кортеж не поддерживает назначение элементов, кортежи не изменяется
+#print(immutable_var)   # Кортеж не поддерживает назначение элементов, кортежи не изменяется, можно заменить элементы списка(list), только поменять
 
+mutable_list = [1, 4, 5, 1, 2, 3]
+mutable_list[1] = 2
+mutable_list[3] = 4
+mutable_list.sort()
+print(mutable_list)
 
