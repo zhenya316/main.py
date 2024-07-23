@@ -17,7 +17,7 @@ Primes = []     # Простые числа
 Not_primes = [] # составные
 numbers.remove(1)
 for i in range(len(numbers)):
-    is_prime = True
+    is_prime = True                     # Flag - булевая переменная меняющая своё значение в процессе проверки, на С часто используют
     a = 0
     for j in range(1, numbers[i] + 1):
         if numbers[i] % j == 0:
