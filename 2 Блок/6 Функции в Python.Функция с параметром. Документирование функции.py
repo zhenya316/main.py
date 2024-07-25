@@ -16,6 +16,7 @@ def lottery(*args, **kwargs):                          # возвращающа�
     print(*args)
     return win, win1                          # return - прекращает функцию и возвращает результат
 
+
 a, b = lottery([1,2],1, 3)
 print(a, b)
 
