@@ -34,6 +34,7 @@ for i in range(n):
             print(a[i][j], end=' ')
     print()
 a1 = a
+
 def field_users(a1):
     for i in range(n):
         for j in range(m):
