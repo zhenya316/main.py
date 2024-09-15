@@ -34,15 +34,28 @@
 # summa_all(a)
 # a = [(1,2,3)]
 
-def summa_all(j, *m, **n):
-    qwe = 0
-    for i in a:
-        print(i)
-        qwe += i
+# def summa_all(j, *m, **n):
+#     qwe = 0
+#     for i in a:
+#         print(i)
+#         qwe += i
+#
+#     return qwe
+#
+#
+# a = (1,2,3)
+# b = summa_all(a)
+# print(b)
 
-    return qwe
+class Add():
+    def __init__(self, argument):
+        self.argument = argument
 
+    def __add__(self, other):
+        return other + self.argument
+z = Add(12)
+x = Add(2)
 
-a = (1,2,3)
-b = summa_all(a)
-print(b)
+z = z + 10
+t = z + x
+print(t)
