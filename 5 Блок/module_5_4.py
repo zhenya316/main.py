@@ -69,6 +69,7 @@ print(House.houses_history)
 Более подробно о работе метода __new__ можно узнать здесь.
 В методе __new__ можно обращаться к атрибутам текущего класса при помощи параметра cls.'''
 
+
 class House:
     houses_history = []
 
@@ -82,31 +83,37 @@ class House:
 
     def __str__(self):
         return f'Название: {self.name}, кол-во этажей: {self.number_of_floors} '
+
     def __add__(self, other):
         if isinstance(other, House):
             return House(self.name, self.number_of_floors + other.number_of_floors)
         if isinstance(other, int):
             return House(self.name, self.number_of_floors + other)
+
     def __iadd__(self, other):
         if isinstance(other, House):
             return House(self.name, self.number_of_floors + other.number_of_floors)
         if isinstance(other, int):
             return House(self.name, self.number_of_floors + other)
+
     def __radd__(self, other):
         if isinstance(other, House):
             return House(self.name, self.number_of_floors + other.number_of_floors)
         if isinstance(other, int):
             return House(self.name, self.number_of_floors + other)
+
     def __eq__(self, other):
         if isinstance(other, House):
             return self.number_of_floors == other.number_of_floors
         elif isinstance(other, int):
             return self.number_of_floors == other
+
     def __lt__(self, other):
         if isinstance(other, House):
             return self.number_of_floors < other.number_of_floors
         elif isinstance(other, int):
             return self.number_of_floors < other
+
     def __le__(self, other):
         if isinstance(other, House):
             return self.number_of_floors <= other.number_of_floors

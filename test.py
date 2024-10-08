@@ -11,3 +11,8 @@ class Example:
 
 
 ex = Example('data', second=25, third=3.14)
+
+users = [['vasya_pupkin', 'F8098FM8fjm9jmi', 55]]
+for  i in users:
+    if i[0] == 'vasya_pupkin':
+        print(1)
