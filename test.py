@@ -16,3 +16,8 @@ users = [['vasya_pupkin', 'F8098FM8fjm9jmi', 55]]
 for  i in users:
     if i[0] == 'vasya_pupkin':
         print(1)
+
+
+
+a = [1, 2, 3]
+print(sum(a))
