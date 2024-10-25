@@ -93,15 +93,28 @@ print(cube1.get_volume())
 Помните, служебные инкапсулированные методы можно и нужно использовать только внутри текущего класса.
 Вам не запрещается вводить дополнительные атрибуты и методы, творите, но не переборщите!'''
 
-
+# Атрибуты класса Figure: sides_count = 0
+# Каждый объект класса Figure должен обладать следующими атрибутами:
+# Атрибуты(инкапсулированные): __sides(список сторон (целые числа)), __color(список цветов в формате RGB)
+# Атрибуты(публичные): filled(закрашенный, bool)
+# И методами:
+# Метод get_color, возвращает список RGB цветов.
+# Метод __is_valid_color - служебный, принимает параметры r, g, b, который проверяет корректность переданных значений перед
+# установкой нового цвета. Корректным цвет: все значения r, g и b - целые числа в диапазоне от 0 до 255 (включительно).
+# Метод set_color принимает параметры r, g, b - числа и изменяет атрибут __color на соответствующие значения, предварительно проверив их на корректность.
+# Если введены некорректные данные, то цвет остаётся прежним.
+# Метод __is_valid_sides - служебный, принимает неограниченное кол-во сторон, возвращает True если все стороны целые положительные числа и кол-во новых сторон совпадает с текущим,
+# False - во всех остальных случаях.
+# Метод get_sides должен возвращать значение я атрибута __sides.
+# Метод __len__ должен возвращать периметр фигуры.
+# Метод set_sides(self, *new_sides) должен принимать новые стороны, если их количество не равно sides_count, то не изменять, в противном случае - менять.
 class Figure:
     sides_count = 0
     __color = []
     filled = False
 
     def __init__(self, color, *sides):
-        if self.__is_valid_color(*color):
-            self.__color = color
+        self.set_color(*color)
         self.__sides = []
         if self.sides_count == len(sides):
             self.set_sides(*sides)
@@ -119,13 +132,20 @@ class Figure:
     def set_color(self, *color):
         if self.__is_valid_color(*color):
             self.__color = color
+        else:
+            print(f'Некорректные данные цвета {color}')
 
     def __is_valid_sides(self, *sides):
-        for i in sides:
-            if isinstance(i, int) and i > 0 and self.sides_count == len(sides):
-                return True
-            else:
-                return False
+        n = 0
+        bool1 = False
+        if self.sides_count == len(sides):
+            for i in sides:
+                if isinstance(i, int) and i > 0:
+                    n += 1
+            if n == len(sides):
+                bool1 = True
+        return bool1
+
 
     def get_sides(self):
         return self.__sides
@@ -134,44 +154,47 @@ class Figure:
         return sum(self.__sides) # периметр фигуры
 
     def set_sides(self, *sides):
-        if self.sides_count != len(sides):
-            return
-        else:
-            self.__sides = [*sides]
+        if self.__is_valid_sides(*sides):
+            if self.sides_count != len(sides):
+                return
+            else:
+                self.__sides = [*sides]
 
 
 class Circle(Figure):
     sides_count = 1
     __radius = 1
-    square = 3.14 * __radius ** 2
 
     def __init__(self, color, *sides):
-        self.__radius = sides[0] / 2 / 3.14
-        if len(sides) != 1:
+        if len(sides) != self.sides_count:
             super().__init__(color, 1)
         else:
             super().__init__(color, *([sides[0]] * self.sides_count))
 
+
     def get_square(self):
-        self.square = 3.14 * self.__radius ** 2
-        return self.square
+        self.__radius = self.get_sides()[0] / 2 / 3.14
+        square = 3.14 * (self.__radius ** 2)
+        return square
 
 
 class Triangle(Figure):
     sides_count = 3
 
     def __init__(self, color, *sides):
-        if len(sides) != 1:
-            self.sides = super().__init__(color, 1)
+        if len(sides) == self.sides_count:
+            super().__init__(color, *sides)
+        elif len(sides) != 1:
+            super().__init__(color, 1)
         else:
-            self.sides = super().__init__(color, *([sides[0]] * self.sides_count))
+            super().__init__(color, *([sides[0]] * self.sides_count))
 
     def get_square(self):
-        self.sort_sides = sorted(self.sides)
-        a, b, c = self.sides[0], self.sides[1], self.sides[2]
+        sort_sides = sorted(self.get_sides())
+        a, b, c = self.get_sides()[0], self.get_sides()[1], self.get_sides()[2]
         p = 0.5 * (a + b + c)
         S = (p * (p - a) * (p - b) * (p - c)) ** 0.5
-        if self.sort_sides[0] < (self.sort_sides[1] + self.sort_sides[2]):
+        if sort_sides[0] < (sort_sides[1] + sort_sides[2]):
             return S
 
 
@@ -179,13 +202,15 @@ class Cube(Figure):
     sides_count = 12
 
     def __init__(self, color, *sides):
-        if len(sides) != 1:
-            self.sides = super().__init__(color, 1)
+        if len(sides) == self.sides_count:
+            super().__init__(color, *sides)
+        elif len(sides) != 1:
+            super().__init__(color, 1)
         else:
-            self.sides = super().__init__(color, *([sides[0]] * self.sides_count))
+            super().__init__(color, *([sides[0]] * self.sides_count))
 
     def get_volume(self):
-        volume = super().get_sides()[0] ** 3
+        volume = self.get_sides()[0] ** 3
         return volume
 
 
@@ -212,3 +237,10 @@ print(len(circle1))
 # Проверка объёма (куба):
 print(cube1.get_volume())
 
+
+triag = Triangle((222, 35, 130), 6, 3, 5)
+print(triag.get_square())
+cube2 = Cube((222, 35, 130), 9, 1, 3, 5, 6, 7, 8, 1, 4, 6, 1, 1)
+print(cube2.get_volume())
+print(cube2.set_color(55, 66, 77))
+print(cube2.get_color())

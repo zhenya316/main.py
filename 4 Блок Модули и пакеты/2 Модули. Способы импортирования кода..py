@@ -7,7 +7,7 @@ for path in sys.path:
     print(path)
 
 # Как происходит поиск нашего модуля при импорте в - site-packages хранятся наши импортируемые модули, при повторном вызове возьмёт оттуда
-# C:\Проекты на Питоне\Обучение\4 Блок
+# C:\Проекты на Питоне\Обучение\4 Блок Модули и пакеты
 # C:\Проекты на Питоне\Обучение
 # C:\Users\Женя\AppData\Local\Programs\Python\Python312\python312.zip
 # C:\Users\Женя\AppData\Local\Programs\Python\Python312\DLLs
