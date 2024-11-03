@@ -48,7 +48,6 @@ def custom_write(file_name, strings):       #file_name - название фай
         file = open(file_name, 'a', encoding='utf-8')
         start = file.tell()
         file.write(i + '\n')
-
         file.close()
         strings_positions[(string, start)] = i
         string += 1
